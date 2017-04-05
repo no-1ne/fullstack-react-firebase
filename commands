@@ -9,4 +9,4 @@ commitMessage=$2
 git branch $branch
 git checkout $branch
 git add -A
-git commit -m $commitMessage
+git commit -m '$commitMessage'
