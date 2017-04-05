@@ -10,7 +10,3 @@ git branch $branch
 git checkout $branch
 git add -A
 git commit -m $commitMessage
-git push -u origin $branch
-git checkout master
-git merge $branch
-git push -u origin master
