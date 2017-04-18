@@ -1,9 +1,3 @@
-git remote add origin git@github.com:startupgurukul/fullstack-react-firebase.git
-git pull origin master --allow-unrelated-histories
-git push -u origin master
-git config --global user.email "no1@webgurukul.io"
-git config --global user.name "No One"
-      
 branch=$1
 commitMessage=$2  
 git branch $branch
