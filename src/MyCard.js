@@ -8,9 +8,12 @@ import "antd/dist/antd.css";
 import { Button } from 'antd';
 import { Row, Col } from 'antd';
 
+
 class MyCard extends Component {
   render() {
     return (
+
+
 <Card title="A tasty thali" bodyStyle={{ padding: "6px" }}>
     <div className="custom-image">
       <img alt="example" width="100%" src="https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg" />
