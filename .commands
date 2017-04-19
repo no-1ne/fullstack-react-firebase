@@ -1,5 +1,5 @@
 branch=$1
-commitMessage=$2  
+commitMessage=$1 
 git branch $branch
 git checkout $branch
 git add -A
