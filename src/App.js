@@ -8,6 +8,32 @@ import MyCard from "./MyCard";
 import { Row, Col,Layout, Menu, Icon } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
+
+let items = [{
+  title: "A new Pen",
+  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/03-BICcristal2008-03-26.jpg/220px-03-BICcristal2008-03-26.jpg",
+  price: 10,
+  description: "A very nice plasticy pen",
+  discount: 5
+},
+{
+  title: "A tasty thali",
+  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
+  price: 100,
+  description: "A very nice healthy thali",
+  discount: 10
+},
+{
+  title: "A non vegeratian  thali",
+  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
+  price: 150,
+  description: "A very nice tasty  thali",
+  discount: 10
+}
+]
+
+
+
 class App extends Component {
   render() {
     return (
@@ -39,34 +65,21 @@ class App extends Component {
 
       </Menu.Item>
     </Menu>
-        
         </Header>
         <Content style={{margin: '26px'}}>
             <Row>
             <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard/>
+                <MyCard passedItem={items[0]} />
             </Col>
+            
             <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard/>
+                <MyCard passedItem={items[1]} />
             </Col>
+            
             <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard/>
+                <MyCard passedItem={items[2]} />
             </Col>
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard/>
-            </Col>
-             <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard/>
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard/>
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard/>
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard/>
-            </Col>
+            
         </Row>
         </Content>
         <Footer>Footer</Footer>
