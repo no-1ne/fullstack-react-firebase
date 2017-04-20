@@ -36,6 +36,18 @@ let items = [{
 
 class App extends Component {
   render() {
+      
+      
+    let allItemCards= items.map(function(item) {
+         return <Col xs={24} sm={12} md={8} lg={6} xl={6}>
+                <MyCard passedItem={item} />
+            </Col>;
+    });
+    
+    
+    
+            
+    
     return (
     <div>
 
@@ -68,19 +80,9 @@ class App extends Component {
         </Header>
         <Content style={{margin: '26px'}}>
             <Row>
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard passedItem={items[0]} />
-            </Col>
+            {allItemCards}
             
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard passedItem={items[1]} />
-            </Col>
-            
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard passedItem={items[2]} />
-            </Col>
-            
-        </Row>
+            </Row>
         </Content>
         <Footer>Footer</Footer>
       </Layout>

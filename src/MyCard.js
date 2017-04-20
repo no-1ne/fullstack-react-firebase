@@ -11,10 +11,10 @@ class MyCard extends Component {
     return (
 
 
-<Card title={this.props.passedItem.title} bodyStyle={{ padding: "6px" }}>
+<Card title={this.props.passedItem.title} bodyStyle={{ padding: "6px" }} >
     <div className="custom-image">
       
-      <img alt="example" width="100%" height="300" src={this.props.passedItem.image} />
+      <img alt="example" width="100%" height="250" src={this.props.passedItem.image} />
     </div>
     <div className="custom-card">
       <h3>
