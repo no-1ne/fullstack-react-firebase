@@ -2,11 +2,8 @@
 import React, { Component } from 'react';
 
 import './MyCard.css';
-import { Card } from 'antd';
+import { Card, Row, Col , Button } from 'antd';
 
-import "antd/dist/antd.css";
-import { Button } from 'antd';
-import { Row, Col } from 'antd';
 
 
 class MyCard extends Component {
