@@ -29,6 +29,27 @@ let items = [{
   price: 150,
   description: "A very nice tasty  thali",
   discount: 10
+},
+{
+  title: "A non vegeratian  thali",
+  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
+  price: 150,
+  description: "A very nice tasty  thali",
+  discount: 10
+},
+{
+  title: "A non vegeratian  thali",
+  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
+  price: 150,
+  description: "A very nice tasty  thali",
+  discount: 10
+},
+{
+  title: "A non vegeratian  thali",
+  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
+  price: 150,
+  description: "A very nice tasty  thali",
+  discount: 10
 }
 ]
 
@@ -36,6 +57,14 @@ let items = [{
 
 class App extends Component {
   render() {
+      
+    let allItems = items.map((item) => {
+            return <Col xs={24} sm={12} md={8} lg={6} xl={6}>
+                <MyCard passedItem={item} />
+            </Col>;
+    });
+            
+              
     return (
     <div>
 
@@ -68,17 +97,7 @@ class App extends Component {
         </Header>
         <Content style={{margin: '26px'}}>
             <Row>
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard passedItem={items[0]} />
-            </Col>
-            
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard passedItem={items[1]} />
-            </Col>
-            
-            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard passedItem={items[2]} />
-            </Col>
+             {allItems}
             
         </Row>
         </Content>
