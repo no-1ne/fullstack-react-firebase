@@ -59,7 +59,7 @@ class App extends Component {
   render() {
       
     let allItems = items.map((item) => {
-            return <Col xs={24} sm={12} md={8} lg={6} xl={6}>
+            return <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <MyCard passedItem={item} />
             </Col>;
     });
