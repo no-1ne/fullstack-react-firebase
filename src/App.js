@@ -20,7 +20,7 @@ let items = [{
   title: "A tasty thali",
   image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
   price: 100,
-  description: "A very nice healthy thali",
+  description: "A very nice healthy thali, with lots of curries and rice",
   discount: 10
 },
 {
@@ -36,18 +36,6 @@ let items = [{
 
 class App extends Component {
   render() {
-      
-      
-    let allItemCards= items.map(function(item) {
-         return <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <MyCard passedItem={item} />
-            </Col>;
-    });
-    
-    
-    
-            
-    
     return (
     <div>
 
@@ -80,9 +68,19 @@ class App extends Component {
         </Header>
         <Content style={{margin: '26px'}}>
             <Row>
-            {allItemCards}
+            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
+                <MyCard passedItem={items[0]} />
+            </Col>
             
-            </Row>
+            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
+                <MyCard passedItem={items[1]} />
+            </Col>
+            
+            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
+                <MyCard passedItem={items[2]} />
+            </Col>
+            
+        </Row>
         </Content>
         <Footer>Footer</Footer>
       </Layout>

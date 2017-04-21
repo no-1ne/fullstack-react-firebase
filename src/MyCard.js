@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 
 import './MyCard.css';
-import { Card, Row, Col , Button, Badge} from 'antd';
+import { Card, Row, Col , Button, Badge, Collapse} from 'antd';
+
+const Panel = Collapse.Panel;
 
 
 
@@ -11,23 +13,36 @@ class MyCard extends Component {
     return (
 
 
-<Card title={this.props.passedItem.title} bodyStyle={{ padding: "6px" }} 
-    style={{margin: '4px'}}>
+<Card title={this.props.passedItem.title} 
+    extra={<Badge count={this.props.passedItem.discount+"% off"}/>}
+    bodyStyle={{ padding: "6px" }} style={{margin: '4px'}}>
+
     <div className="custom-image">
-      
-      <img alt="example" width="100%" height="250" src={this.props.passedItem.image} />
+
+            <img alt="example" width="100%" height="300" 
+                src={this.props.passedItem.image} />
+
     </div>
+
     <div className="custom-card">
-      <h3>
-        {this.props.passedItem.description} 
-        <Badge count={this.props.passedItem.discount+"% off"} style={{left: '8px'}}/>
-      </h3>
+      
+     <Collapse bordered={false}>
+        <Panel header={this.props.passedItem.description.substring(0,20)} key="1">
+          <div>{this.props.passedItem.description}</div>
+        </Panel>
+      </Collapse>
+         
+
+      
+
 
      <hr/><br/> 
 
     <Row>
     <Col xs={12}>
-        <p>{this.props.passedItem.price} Rs</p>
+        <p>
+            {this.props.passedItem.price} Rs     
+        </p>
     </Col>
     
     <Col xs={12}>
@@ -35,6 +50,7 @@ class MyCard extends Component {
     </Col>
     </Row>
    </div>
+
   </Card>
     );
   }
