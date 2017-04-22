@@ -5,66 +5,56 @@ import './App.css';
 
 import MyCard from "./MyCard";
 
-import { Row, Col,Layout, Menu, Icon } from 'antd';
+import { Row, Col,Layout, Menu, Icon, Card } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
+import * as firebase from 'firebase';
 
-
-let items = [{
-  title: "A new Pen",
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/03-BICcristal2008-03-26.jpg/220px-03-BICcristal2008-03-26.jpg",
-  price: 10,
-  description: "A very nice plasticy pen",
-  discount: 5
-},
-{
-  title: "A tasty thali",
-  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
-  price: 100,
-  description: "A very nice healthy thali, with lots of curries and rice",
-  discount: 10
-},
-{
-  title: "A non vegeratian  thali",
-  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
-  price: 150,
-  description: "A very nice tasty  thali",
-  discount: 10
-},
-{
-  title: "A non vegeratian  thali",
-  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
-  price: 150,
-  description: "A very nice tasty  thali",
-  discount: 10
-},
-{
-  title: "A non vegeratian  thali",
-  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
-  price: 150,
-  description: "A very nice tasty  thali",
-  discount: 10
-},
-{
-  title: "A non vegeratian  thali",
-  image: "https://thumbs.dreamstime.com/z/indian-thali-26440151.jpg",
-  price: 150,
-  description: "A very nice tasty  thali",
-  discount: 10
-}
-]
 
 
 
 class App extends Component {
+    
+  constructor(props) {
+      super(props);
+      this.state = {
+          allItems : []
+      }
+  }
+    
+  componentDidMount() {
+      console.log("in Componenet Mount at " + Date());
+      this.databaseRef = firebase.database().ref('items');
+      this.databaseRef.on('value', (dataSnap) => {
+          console.log(dataSnap.val());
+          console.log(Date());
+          this.setState({allItems:dataSnap.val() });
+      })
+  }  
+  
+  componentWillUnmount() {
+      this.databaseRef.off();
+  }
+    
+  
+    
   render() {
-      
-    let allItems = items.map((item) => {
+    console.log("in render " + Date());
+    let allItemsDisplayed = [];
+    
+    if(this.state.allItems.length == 0) {
+       allItemsDisplayed = 
+       <Card loading title="Card title" style={{ width: '34%' }}>
+        Whatever content
+        </Card> ;
+    } else {
+    allItemsDisplayed = this.state.allItems.map((item) => {
             return <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <MyCard passedItem={item} />
             </Col>;
     });
-            
-              
+    }
+
+                   
     return (
     <div>
 
@@ -97,7 +87,7 @@ class App extends Component {
         </Header>
         <Content style={{margin: '26px'}}>
             <Row>
-             {allItems}
+             {allItemsDisplayed}
             
         </Row>
         </Content>
