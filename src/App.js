@@ -43,9 +43,10 @@ class App extends Component {
     
     if(this.state.allItems.length == 0) {
        allItemsDisplayed = 
-       <Card loading title="Card title" style={{ width: '34%' }}>
+       <Col xs={24} sm={12} md={8} lg={8} xl={8}>
+       <Card loading title="Loading" >
         Whatever content
-        </Card> ;
+        </Card></Col> ;
     } else {
     allItemsDisplayed = this.state.allItems.map((item) => {
             return <Col xs={24} sm={12} md={8} lg={8} xl={8}>
