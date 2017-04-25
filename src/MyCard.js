@@ -27,7 +27,7 @@ class MyCard extends Component {
     <div className="custom-card">
       
      <Collapse bordered={false}>
-        <Panel header={this.props.passedItem.description.substring(0,20)} key="1">
+        <Panel header={this.props.passedItem.description.substring(0,25)} key="1">
           <div>{this.props.passedItem.description}</div>
         </Panel>
       </Collapse>

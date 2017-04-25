@@ -7,6 +7,7 @@ import "antd/dist/antd.css";
 import App from './App';
 import './index.css';
 import * as firebase from 'firebase';
+import MyRoutes from './Routes.js';
 
 const config = {
     apiKey: "AIzaSyBYAQS6PX9gGAIt43Tf6yUTr_PEPUd35yk",
@@ -19,6 +20,6 @@ const config = {
 firebase.initializeApp(config);
   
 ReactDOM.render(
-  <App />,
+  <MyRoutes />,
   document.getElementById('root')
 );
