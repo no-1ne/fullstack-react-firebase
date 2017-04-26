@@ -5,8 +5,8 @@ import './App.css';
 
 import MyCard from "./MyCard";
 
-import { Row, Col,Layout, Menu, Icon, Card } from 'antd';
-const { Header, Footer, Sider, Content } = Layout;
+import { Row, Col, Card } from 'antd';
+
 import * as firebase from 'firebase';
 
 
@@ -58,11 +58,9 @@ class App extends Component {
                    
     return (
     <div>
-
-   
-             {allItemsDisplayed}     
-        
-        
+            <Row>
+             {allItemsDisplayed}
+            </Row>
      </div>
     );
   }

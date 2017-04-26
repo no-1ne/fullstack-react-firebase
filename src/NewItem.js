@@ -1,14 +1,13 @@
 /*eslint-disable*/
 import React, { Component } from 'react';
 
+class NewItem extends Component {
 
-export default class NewItem extends Component {
-  render() {
-    return (
-       
-    <div> New Item can be added from here </div>
-      
-    
-)}}
+ render() {
+    return <div> Adding New Item goes here </div>;
+     
+ }
 
+}
 
+export default NewItem;

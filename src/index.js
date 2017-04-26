@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 import "antd/dist/antd.css";
 
 
-import App from './App';
+import MyRoutes from './MyRoutes.js';
 import './index.css';
 import * as firebase from 'firebase';
-import MyRoutes from './Routes.js';
+
 
 const config = {
     apiKey: "AIzaSyBYAQS6PX9gGAIt43Tf6yUTr_PEPUd35yk",
