@@ -2,13 +2,22 @@
 import React, { Component } from 'react';
 
 import './MyCard.css';
-import { Card, Row, Col , Button, Badge, Collapse} from 'antd';
+import { Card, Row, Col , Button, Badge, Collapse, notification,Icon } from 'antd';
 
 const Panel = Collapse.Panel;
 
 
 
 class MyCard extends Component {
+  
+  handleClick(){
+      notification.open({
+    message: 'Coming Soon!!!',
+    description: 'Add to cart, Signup, Sign in, Adding an Item, Checkout coming soon',
+    icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
+  });
+  }
+  
   render() {
     return (
 
@@ -46,7 +55,7 @@ class MyCard extends Component {
     </Col>
     
     <Col xs={12}>
-          <Button type="primary" icon="shopping-cart" size="large">Add to cart</Button>
+          <Button onClick={this.handleClick} type="primary" icon="shopping-cart" size="large">Add to cart</Button>
     </Col>
     </Row>
    </div>
