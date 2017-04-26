@@ -10,7 +10,7 @@ import NewItem from './NewItem.js';
 class MyRoutes extends Component {
 
  render() {
-    return <BrowserRouter>
+    return (<BrowserRouter>
         <div>
         
             <Layout >
@@ -54,7 +54,8 @@ class MyRoutes extends Component {
     </Layout>
      
         </div>
-     </BrowserRouter>;
+     </BrowserRouter>
+     );
      
  }
 
