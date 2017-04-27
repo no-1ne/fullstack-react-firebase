@@ -48,9 +48,9 @@ class App extends Component {
         Whatever content
         </Card></Col> ;
     } else {
-    allItemsDisplayed = this.state.allItems.map((item) => {
+    allItemsDisplayed = Object.keys(this.state.allItems).map((key) => {
             return <Col xs={24} sm={12} md={8} lg={8} xl={8}>
-                <MyCard passedItem={item} />
+                <MyCard passedItem={this.state.allItems[key]} />
             </Col>;
     });
     }
