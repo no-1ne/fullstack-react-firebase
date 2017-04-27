@@ -9,7 +9,7 @@ class NewItem extends Component {
 constructor(props) {
       super(props);
       this.handleSubmit = this.handleSubmit.bind(this);   
-
+      this.handleDBSaveSuccess = this.handleDBSaveSuccess.bind(this);   
   }
 
 
@@ -21,6 +21,23 @@ constructor(props) {
   componentWillUnmount() {
       this.databaseRef.off();
   }
+ handleDBSaveSuccess() {
+
+     console.log('succcess'+ this.props);
+     notification.success({
+    message: 'Sucessfully added an item',
+    description: 'taking you back to listings page'
+  });
+  this.props.history.push('/');
+ } 
+ 
+ handleDbSaveFail() {
+   console.log('failure');
+     notification.error({
+    message: 'Cannot add the item',
+    description: 'Please try again'
+  });   
+ }
 
  handleSubmit(event){
     event.preventDefault();
@@ -45,7 +62,7 @@ constructor(props) {
     console.log(newItem);
 
 
-    this.databaseRef.update(newItemPushed);
+    this.databaseRef.update(newItemPushed).then(this.handleDBSaveSuccess).catch(this.handleDbSaveFail);
  }
 
 
@@ -57,11 +74,12 @@ constructor(props) {
     <hr/><br/>
       <form onSubmit={this.handleSubmit}>
         <Input placeholder="Item Title" name='title' required/>
-
+        <br/><br/>  
         <Input placeholder="Image" name='image'required />
+        <br/><br/>
         <Input type="textarea" rows={4}
             placeholder="Description" name='description' required/>
-        
+        <br/><br/>
         <span>Price: </span><InputNumber placeholder="Price" name='price' defaultValue={100}/>    
         <span>Discount: </span><InputNumber placeholder="Discount" name='discount' defaultValue={0}/>  
         <br/><br/>
