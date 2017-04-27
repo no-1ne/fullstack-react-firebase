@@ -6,5 +6,15 @@
 .ant-layout-sider-zero-width-trigger {
     color: black;
     background: white;
-    top: 10px;
 }
+
+
+.ant-layout-sider-zero-width-trigger:active {
+    background: white;
+}
+
+.ant-layout-sider-zero-width-trigger:hover {
+    background: white;
+}
+
+
