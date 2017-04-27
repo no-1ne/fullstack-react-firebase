@@ -8,8 +8,12 @@ class NewItem extends Component {
 
 constructor(props) {
       super(props);
+      this.state = {
+          loading: false
+      };
       this.handleSubmit = this.handleSubmit.bind(this);   
-      this.handleDBSaveSuccess = this.handleDBSaveSuccess.bind(this);   
+      this.handleDBSaveSuccess = this.handleDBSaveSuccess.bind(this);
+      this.handleDbSaveFail = this.handleDbSaveFail.bind(this);
   }
 
 
@@ -36,7 +40,11 @@ constructor(props) {
      notification.error({
     message: 'Cannot add the item',
     description: 'Please try again'
-  });   
+  });  
+  
+  this.setState({
+      loading: false
+  });
  }
 
  handleSubmit(event){
@@ -60,8 +68,9 @@ constructor(props) {
     newItemPushed[''+newItemKey] = newItem;
     console.log(newItemPushed);
     console.log(newItem);
-
-
+    this.setState({
+        loading: true
+    });
     this.databaseRef.update(newItemPushed).then(this.handleDBSaveSuccess).catch(this.handleDbSaveFail);
  }
 
@@ -83,7 +92,7 @@ constructor(props) {
         <span>Price: </span><InputNumber placeholder="Price" name='price' defaultValue={100}/>    
         <span>Discount: </span><InputNumber placeholder="Discount" name='discount' defaultValue={0}/>  
         <br/><br/>
-        <Button type="primary" htmlType='submit' >Add Item</Button>
+        <Button type="primary" htmlType='submit' loading={this.state.loading}>Add Item</Button>
       </form>
       
     </div>

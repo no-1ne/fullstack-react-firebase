@@ -21,7 +21,13 @@ class MyRoutes extends Component {
         <Icon type="user" />
         <span className="nav-text">My Account</span>
       </Menu.Item>
-      
+      <Menu.Item key="2">
+        <Icon type="to-top" />
+        <span className="nav-text">
+         <Link to='/new-item'>   Upload Item </Link>
+            
+         </span>
+      </Menu.Item>
     </Menu>
       
       </Sider>
@@ -30,25 +36,16 @@ class MyRoutes extends Component {
         
         
     <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']} style={{float: 'right'}}>
-     
-      <Menu.Item key="1">
-        <Icon type="to-top" />
-        <span className="nav-text">
-         <Link to='/new-item'>   Upload Item </Link>
-         </span>
-      </Menu.Item>
-     <Menu.Item key="2" disabled>
+      <Menu.Item key="1" disabled>
         <Icon type="shopping-cart" />
         <span className="nav-text">Cart</span>
 
       </Menu.Item>
-      
-     
     </Menu>
-    
         </Header>
-        <Content style={{margin: '26px', paddingTop: '16px'}}>
-
+        <Content style={{margin: '26px'}}>
+        
+        
             <Route exact path='/new-item' component={NewItem}/>
             <Route exact path='/' component={App}/>
            </Content>
