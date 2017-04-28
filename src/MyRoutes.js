@@ -54,6 +54,10 @@ handleAuthChange(user) {
         this.setState({
             loggedIn: true
         });
+    } else {
+        this.setState({
+            loggedIn: false
+        });
     }
 }
 
@@ -72,9 +76,7 @@ handleSiderMenuClick(propsPassed) {
         });
         } else {
             firebase.auth().signOut();
-            this.setState({
-            loggedIn: false
-        });
+            
         }
 
     }
