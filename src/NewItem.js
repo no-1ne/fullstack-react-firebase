@@ -14,6 +14,7 @@ constructor(props) {
       this.handleSubmit = this.handleSubmit.bind(this);   
       this.handleDBSaveSuccess = this.handleDBSaveSuccess.bind(this);
       this.handleDbSaveFail = this.handleDbSaveFail.bind(this);
+      this.handleLoginButton = this.handleLoginButton.bind(this);
   }
 
 
@@ -74,9 +75,14 @@ constructor(props) {
     this.databaseRef.update(newItemPushed).then(this.handleDBSaveSuccess).catch(this.handleDbSaveFail);
  }
 
-
+handleLoginButton(){
+    this.props.showModalLoginWindow();
+}
 
  render() {
+     console.log(this.props.loggedInProp);
+     
+    if(this.props.loggedInProp == true) { 
     return (
     <div> 
     <h3>Add an Item to be Sold</h3>
@@ -97,6 +103,12 @@ constructor(props) {
       
     </div>
     );
+    } else {
+        return(
+        <Button type="primary" onClick={this.handleLoginButton}>Please Login to add an item</Button>
+        );
+    }
+
      
  }
 

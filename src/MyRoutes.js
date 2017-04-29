@@ -20,6 +20,8 @@ constructor(props) {
     this.handleSiderMenuClick = this.handleSiderMenuClick.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleAuthChange = this.handleAuthChange.bind(this);
+    this.renderNewItem = this.renderNewItem.bind(this);
+    this.showModalLoginWindowDisplay = this.showModalLoginWindowDisplay.bind(this);
 }
 
 handleGoogleLogin(){
@@ -82,10 +84,23 @@ handleSiderMenuClick(propsPassed) {
     }
 }
 
+
 handleCancel() {
   this.setState({
     visible: false
   });  
+}
+
+showModalLoginWindowDisplay() {
+ this.setState({
+    visible: true
+  });   
+}
+
+renderNewItem() {
+    return (
+        <NewItem loggedInProp={this.state.loggedIn} showModalLoginWindow={this.showModalLoginWindowDisplay}/>
+    );
 }
 
  render() {
@@ -137,7 +152,7 @@ handleCancel() {
         <Content style={{margin: '26px'}}>
         
         
-            <Route exact path='/new-item' component={NewItem}/>
+            <Route exact path='/new-item' render={this.renderNewItem}/>
             <Route exact path='/' component={App}/>
            </Content>
         <Footer>Footer</Footer>
