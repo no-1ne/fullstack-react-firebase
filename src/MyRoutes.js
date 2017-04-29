@@ -97,9 +97,10 @@ showModalLoginWindowDisplay() {
   });   
 }
 
-renderNewItem() {
+renderNewItem(props) {
     return (
-        <NewItem loggedInProp={this.state.loggedIn} showModalLoginWindow={this.showModalLoginWindowDisplay}/>
+        <NewItem loggedInProp={this.state.loggedIn} routeProps={props} 
+            showModalLoginWindow={this.showModalLoginWindowDisplay}/>
     );
 }
 

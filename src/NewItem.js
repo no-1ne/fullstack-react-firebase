@@ -33,7 +33,7 @@ constructor(props) {
     message: 'Sucessfully added an item',
     description: 'taking you back to listings page'
   });
-  this.props.history.push('/');
+  this.props.routeProps.history.push('/');
  } 
  
  handleDbSaveFail() {
