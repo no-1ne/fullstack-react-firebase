@@ -15,7 +15,8 @@ constructor(props) {
     super(props);
     this.state = {
         visible : false,
-        loggedIn: false
+        loggedIn: false,
+        currentUser: null
     };
     this.handleSiderMenuClick = this.handleSiderMenuClick.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -54,11 +55,13 @@ authRedirectFail(reason) {
 handleAuthChange(user) {
     if(user !==null) {
         this.setState({
-            loggedIn: true
+            loggedIn: true,
+            currentUser: user
         });
     } else {
         this.setState({
-            loggedIn: false
+            loggedIn: false,
+            currentUser: null
         });
     }
 }
@@ -100,7 +103,8 @@ showModalLoginWindowDisplay() {
 renderNewItem(props) {
     return (
         <NewItem loggedInProp={this.state.loggedIn} routeProps={props} 
-            showModalLoginWindow={this.showModalLoginWindowDisplay}/>
+            showModalLoginWindow={this.showModalLoginWindowDisplay}
+                loggedInUser={this.state.currentUser}/>
     );
 }
 

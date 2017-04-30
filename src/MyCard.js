@@ -6,9 +6,17 @@ import { Card, Row, Col , Button, Badge, Collapse, notification,Icon } from 'ant
 
 const Panel = Collapse.Panel;
 
-
+import * as firebase from 'firebase';
 
 class MyCard extends Component {
+  
+  constructor(props) {
+      super(props);
+      this.state={
+          imagePath: ''
+      }
+      this.handleImagePathDownload = this.handleImagePathDownload.bind(this);
+  }
   
   handleClick(){
       notification.open({
@@ -16,6 +24,20 @@ class MyCard extends Component {
     description: 'Add to cart, Signup, Sign in, Adding an Item, Checkout coming soon',
     icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
   });
+  }
+  
+  handleImagePathDownload(url) {
+      console.log(url);
+      this.setState({
+         imagePath: url 
+      });
+      
+  }
+  
+  componentDidMount() {
+      let storage = firebase.storage();
+     let imageRef =  storage.ref(this.props.passedItem.image);
+     imageRef.getDownloadURL().then(this.handleImagePathDownload);
   }
   
   render() {
@@ -29,7 +51,7 @@ class MyCard extends Component {
     <div className="custom-image">
 
             <img alt="example" width="100%" height="300" 
-                src={this.props.passedItem.image} />
+                src={this.state.imagePath} />
 
     </div>
 

@@ -49,21 +49,29 @@ constructor(props) {
  }
 
  handleSubmit(event){
+
     event.preventDefault();
     console.log(event.target.title.value);
     console.log(event.target.description.value);
     console.log(event.target.image.value);
     console.log(event.target.price.value);
     console.log(event.target.discount.value);
-    
+    let newItemKey = this.databaseRef.push().key;
+    let imagePath='images/'+newItemKey+"/"+event.target.image.files[0].name;    
+    console.log(this.props.loggedInUser);
     let newItem = {
       title:   event.target.title.value,
       description: event.target.description.value,
       price: event.target.price.value,
-      image: event.target.image.value,
-      discount: event.target.discount.value
+      image: imagePath,
+      discount: event.target.discount.value,
+      createdBy: this.props.loggedInUser.uid,
+      createdAt: firebase.database.ServerValue.TIMESTAMP
     }
-    let newItemKey = this.databaseRef.push().key;
+
+    
+    let storageRef = firebase.storage().ref();
+
     console.log(newItemKey);
     let newItemPushed = {};
     newItemPushed[''+newItemKey] = newItem;
@@ -72,6 +80,7 @@ constructor(props) {
     this.setState({
         loading: true
     });
+    storageRef.child(imagePath).put(event.target.image.files[0]);
     this.databaseRef.update(newItemPushed).then(this.handleDBSaveSuccess).catch(this.handleDbSaveFail);
  }
 
@@ -90,7 +99,7 @@ handleLoginButton(){
       <form onSubmit={this.handleSubmit}>
         <Input placeholder="Item Title" name='title' required/>
         <br/><br/>  
-        <Input placeholder="Image" name='image'required />
+        <input placeholder="Image" name='image'required type='file'/>
         <br/><br/>
         <Input type="textarea" rows={4}
             placeholder="Description" name='description' required/>
