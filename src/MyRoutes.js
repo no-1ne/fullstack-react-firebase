@@ -72,7 +72,8 @@ handleAuthChange(user) {
         this.databaseRef.off();
         this.setState({
             loggedIn: false,
-            currentUser: null
+            currentUser: null,
+            cartItemCount: 0
         });
     }
 }
