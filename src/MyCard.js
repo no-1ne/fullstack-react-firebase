@@ -16,14 +16,41 @@ class MyCard extends Component {
           imagePath: ''
       }
       this.handleImagePathDownload = this.handleImagePathDownload.bind(this);
-  }
+      this.handleClick = this.handleClick.bind(this);  
+ }
+  
+addCartSuccess(){
+  notification.success({
+        message: 'Sucessfully Added item to cart',
+        description: 'Go ahead an shop more :)'
+      });  
+}
   
   handleClick(){
-      notification.open({
-    message: 'Coming Soon!!!',
-    description: 'Add to cart, Signup, Sign in, Adding an Item, Checkout coming soon',
-    icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
-  });
+      
+      if(this.props.loggedInProp != true) {
+      notification.error({
+        message: 'Please Login',
+        description: 'To add to cart, please login'
+      });
+      
+      this.props.showModalLoginWindow();
+      } else {
+    let newCartItem = {
+      price:  this.props.passedItem.price,
+      title: this.props.passedItem.title,
+      quantity: 1
+    }
+    
+    let newItemPushed = {};
+
+    newItemPushed[''+this.props.loggedInUser.uid+'/'+this.props.itemId] = newCartItem;
+    console.log(newItemPushed);
+    this.databaseRef.update(newItemPushed).then(this.addCartSuccess);
+      }
+
+
+
   }
   
   handleImagePathDownload(url) {
@@ -38,6 +65,13 @@ class MyCard extends Component {
       let storage = firebase.storage();
      let imageRef =  storage.ref(this.props.passedItem.image);
      imageRef.getDownloadURL().then(this.handleImagePathDownload);
+     this.databaseRef = firebase.database().ref('cart');
+  }
+  
+
+  
+  componentWillUnmount() {
+      this.databaseRef.off();
   }
   
   render() {

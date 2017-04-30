@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
-import { Layout, Menu, Icon, Modal, Button, notification} from 'antd';
+import { Layout, Menu, Icon, Modal, Button, notification, Badge} from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 import App from './App.js';
@@ -16,13 +16,15 @@ constructor(props) {
     this.state = {
         visible : false,
         loggedIn: false,
-        currentUser: null
+        currentUser: null,
+        cartItemCount: 0
     };
     this.handleSiderMenuClick = this.handleSiderMenuClick.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleAuthChange = this.handleAuthChange.bind(this);
     this.renderNewItem = this.renderNewItem.bind(this);
     this.showModalLoginWindowDisplay = this.showModalLoginWindowDisplay.bind(this);
+    this.renderApp = this.renderApp.bind(this);
 }
 
 handleGoogleLogin(){
@@ -54,11 +56,20 @@ authRedirectFail(reason) {
 
 handleAuthChange(user) {
     if(user !==null) {
+       this.databaseRef = firebase.database().ref('cart/'+user.uid);
+        this.databaseRef.on('value', (dataSnap) => {
+          console.log(Object.keys(dataSnap.val()).length);
+          this.setState({
+              cartItemCount: Object.keys(dataSnap.val()).length
+          });
+      }) 
+        
         this.setState({
             loggedIn: true,
             currentUser: user
         });
     } else {
+        this.databaseRef.off();
         this.setState({
             loggedIn: false,
             currentUser: null
@@ -108,6 +119,14 @@ renderNewItem(props) {
     );
 }
 
+renderApp(props) {
+  return (
+        <App loggedInProp={this.state.loggedIn} routeProps={props} 
+            showModalLoginWindow={this.showModalLoginWindowDisplay}
+                loggedInUser={this.state.currentUser}/>
+    );  
+}
+
  render() {
     let signInText = 'SignIn/Register'; 
     if(this.state.loggedIn == true) {
@@ -149,6 +168,7 @@ renderNewItem(props) {
     <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']} style={{float: 'right'}}>
       <Menu.Item key="1" disabled>
         <Icon type="shopping-cart" />
+        <Badge count={this.state.cartItemCount}/>
         <span className="nav-text">Cart</span>
 
       </Menu.Item>
@@ -158,7 +178,7 @@ renderNewItem(props) {
         
         
             <Route exact path='/new-item' render={this.renderNewItem}/>
-            <Route exact path='/' component={App}/>
+            <Route exact path='/' render={this.renderApp}/>
            </Content>
         <Footer>Footer</Footer>
       </Layout>

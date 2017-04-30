@@ -49,8 +49,12 @@ class App extends Component {
         </Card></Col> ;
     } else {
     allItemsDisplayed = Object.keys(this.state.allItems).map((key) => {
-            return <Col xs={24} sm={12} md={8} lg={8} xl={8}>
-                <MyCard passedItem={this.state.allItems[key]} />
+            return <Col key={key} xs={24} sm={12} md={8} lg={8} xl={8}>
+                <MyCard itemId={key} passedItem={this.state.allItems[key]} 
+                    showModalLoginWindow={this.props.showModalLoginWindow}
+                    loggedInUser={this.props.loggedInUser}
+                    routeProps = {this.props.routeProps}
+                    loggedInProp= {this.props.loggedInProp}/>
             </Col>;
     });
     }
