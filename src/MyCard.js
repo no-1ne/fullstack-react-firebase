@@ -13,7 +13,8 @@ class MyCard extends Component {
   constructor(props) {
       super(props);
       this.state={
-          imagePath: ''
+          imagePath: '',
+          imageLoading : true
       }
       this.handleImagePathDownload = this.handleImagePathDownload.bind(this);
       this.handleClick = this.handleClick.bind(this);  
@@ -56,7 +57,8 @@ addCartSuccess(){
   handleImagePathDownload(url) {
       console.log(url);
       this.setState({
-         imagePath: url 
+         imagePath: url,
+         imageLoading: false
       });
       
   }
@@ -75,6 +77,16 @@ addCartSuccess(){
   }
   
   render() {
+
+    if(this.state.imageLoading ==true) {
+        return (
+        
+        <Card loading title="Loading">
+            Whatever content
+        </Card>
+        );
+    } else {
+
     return (
 
 
@@ -118,6 +130,8 @@ addCartSuccess(){
 
   </Card>
     );
+}
+
   }
 }
 
