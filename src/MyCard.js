@@ -40,7 +40,8 @@ addCartSuccess(){
     let newCartItem = {
       price:  this.props.passedItem.price,
       title: this.props.passedItem.title,
-      quantity: 1
+      quantity: 1,
+      discount: this.props.passedItem.discount
     }
     
     let newItemPushed = {};

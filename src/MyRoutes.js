@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
-import { Layout, Menu, Icon, Modal, Button, notification, Badge} from 'antd';
+import { Layout, Menu, Icon, Modal, Button, notification, Badge, Row, Col} from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 import App from './App.js';
@@ -17,7 +17,10 @@ constructor(props) {
         visible : false,
         loggedIn: false,
         currentUser: null,
-        cartItemCount: 0
+        cartItemCount: 0,
+        cartVisible: false,
+        cartItems: []
+        
     };
     this.handleSiderMenuClick = this.handleSiderMenuClick.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -25,6 +28,8 @@ constructor(props) {
     this.renderNewItem = this.renderNewItem.bind(this);
     this.showModalLoginWindowDisplay = this.showModalLoginWindowDisplay.bind(this);
     this.renderApp = this.renderApp.bind(this);
+    this.handleHeaderMenuClick = this.handleHeaderMenuClick.bind(this);
+    this.getCartContent = this.getCartContent.bind(this);
 }
 
 handleGoogleLogin(){
@@ -60,7 +65,8 @@ handleAuthChange(user) {
         this.databaseRef.on('value', (dataSnap) => {
           console.log(Object.keys(dataSnap.val()).length);
           this.setState({
-              cartItemCount: Object.keys(dataSnap.val()).length
+              cartItemCount: Object.keys(dataSnap.val()).length,
+              cartItems: dataSnap.val()
           });
       }) 
         
@@ -83,6 +89,16 @@ componentDidMount (){
     firebase.auth().onAuthStateChanged(this.handleAuthChange);
 }
 
+handleHeaderMenuClick(propsPassed) {
+    
+    if(propsPassed.key == 1){
+    this.setState({
+        cartVisible: true
+    });
+    }
+
+}
+
 handleSiderMenuClick(propsPassed) {
     console.log(propsPassed);
     if(propsPassed.key == 3){
@@ -102,7 +118,8 @@ handleSiderMenuClick(propsPassed) {
 
 handleCancel() {
   this.setState({
-    visible: false
+    visible: false,
+    cartVisible: false
   });  
 }
 
@@ -128,11 +145,44 @@ renderApp(props) {
     );  
 }
 
+getCartContent(){
+    if(this.state.cartItemCount == 0) {
+        return(<div>No items in the cart</div>);
+    } else {
+        console.log(this.state.cartItems);
+        
+        
+        return Object.keys(this.state.cartItems).map((cartItemKey) => {
+           return(
+           <Row>
+           <Col xs={12} sm={6} md={6} lg={6} xl={6}>
+           {this.state.cartItems[cartItemKey].title}
+           </Col>
+           <Col xs={12} sm={6} md={6} lg={6} xl={6}>
+           Quantity: {this.state.cartItems[cartItemKey].quantity}
+           <Button type='primary'>Update</Button>
+           </Col>
+           <Col xs={12} sm={6} md={6} lg={6} xl={6}>
+           Price: {this.state.cartItems[cartItemKey].price}
+           </Col>
+           <Col xs={12} sm={6} md={6} lg={6} xl={6}>
+           <Button type='danger'>Delete</Button>
+           </Col>
+            <br/><br/><hr/><br/>
+           </Row>
+           
+           );
+        });
+    }
+}
+
  render() {
     let signInText = 'SignIn/Register'; 
     if(this.state.loggedIn == true) {
         signInText = 'Logout'
     }
+    
+    let cartContent = this.getCartContent();
     return (<BrowserRouter>
         <div>
         
@@ -166,8 +216,10 @@ renderApp(props) {
         <Header style={{ background: '#fff', lineHeight: '64px' }}>
         
         
-    <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']} style={{float: 'right'}}>
-      <Menu.Item key="1" disabled>
+    <Menu theme="light" mode="horizontal" 
+        onClick={this.handleHeaderMenuClick}
+        defaultSelectedKeys={['1']} style={{float: 'right'}}>
+      <Menu.Item key="1">
         <Icon type="shopping-cart" />
         <Badge count={this.state.cartItemCount}/>
         <span className="nav-text">Cart</span>
@@ -197,6 +249,14 @@ renderApp(props) {
             style={{width: '100%', background: 'blue'}}>
             Login with Facebook</Button>
         </Modal>   
+        
+      <Modal title="Cart" visible={this.state.cartVisible}
+           onCancel={this.handleCancel}
+          footer={null} width='100%'
+        >
+        {cartContent}
+        </Modal>    
+        
         </div>
         
         
