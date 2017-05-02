@@ -1,7 +1,8 @@
 /*eslint-disable*/
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
-import { Layout, Menu, Icon, Modal, Button, notification, Badge, Row, Col} from 'antd';
+import { Layout, Menu, Icon, Modal, InputNumber,
+    Button, notification, Badge, Row, Col} from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 import App from './App.js';
@@ -30,6 +31,8 @@ constructor(props) {
     this.renderApp = this.renderApp.bind(this);
     this.handleHeaderMenuClick = this.handleHeaderMenuClick.bind(this);
     this.getCartContent = this.getCartContent.bind(this);
+    this.handleCartDelete = this.handleCartDelete.bind(this);
+    this.handleCartQuantityChange = this.handleCartQuantityChange.bind(this);
 }
 
 handleGoogleLogin(){
@@ -145,6 +148,18 @@ renderApp(props) {
     );  
 }
 
+handleCartDelete(cartItemKey) {
+    this.databaseRef.child(cartItemKey).remove();
+}
+
+handleCartQuantityChange(cartItemKey, newVal){
+  console.log(newVal);
+  console.log(cartItemKey);
+  this.databaseRef.child(cartItemKey).update({
+      quantity: newVal
+  });
+}
+
 getCartContent(){
     if(this.state.cartItemCount == 0) {
         return(<div>No items in the cart</div>);
@@ -153,20 +168,23 @@ getCartContent(){
         
         
         return Object.keys(this.state.cartItems).map((cartItemKey) => {
+           let price = this.state.cartItems[cartItemKey].price;
+           let discount =this.state.cartItems[cartItemKey].discount;
+           let finalPrice = price - price*discount/100;
            return(
            <Row>
            <Col xs={12} sm={6} md={6} lg={6} xl={6}>
            {this.state.cartItems[cartItemKey].title}
            </Col>
            <Col xs={12} sm={6} md={6} lg={6} xl={6}>
-           Quantity: {this.state.cartItems[cartItemKey].quantity}
-           <Button type='primary'>Update</Button>
+           Quantity: <InputNumber onChange={(newVal)=>this.handleCartQuantityChange(cartItemKey, newVal)}
+                defaultValue={this.state.cartItems[cartItemKey].quantity}/>
            </Col>
            <Col xs={12} sm={6} md={6} lg={6} xl={6}>
-           Price: {this.state.cartItems[cartItemKey].price}
+           Price: {finalPrice*this.state.cartItems[cartItemKey].quantity}
            </Col>
            <Col xs={12} sm={6} md={6} lg={6} xl={6}>
-           <Button type='danger'>Delete</Button>
+           <Button type='danger' onClick={()=>{this.handleCartDelete(cartItemKey)}} >Delete</Button>
            </Col>
             <br/><br/><hr/><br/>
            </Row>
